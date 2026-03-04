@@ -1,0 +1,102 @@
+name: Recipe Request
+description: Request a new agent recipe
+title: "[Recipe Request]: "
+labels: ["recipe-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new recipe! Please fill out the details below so contributors know what to build.
+
+  - type: input
+    id: recipe-name
+    attributes:
+      label: Recipe Name
+      description: A short, descriptive name for the recipe.
+      placeholder: e.g., "GraphQL Schema Generator"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category does this recipe belong to?
+      options:
+        - Code Review
+        - Testing
+        - Migrations
+        - Documentation
+        - Security
+        - DevOps
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what the recipe should do and what problem it solves.
+      placeholder: |
+        This recipe should take a REST API codebase and generate a corresponding
+        GraphQL schema with resolvers. It should handle nested relationships,
+        pagination, and error handling.
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: When would someone use this recipe? What is the typical scenario?
+      placeholder: |
+        When migrating a REST API to GraphQL, or when adding a GraphQL layer
+        on top of an existing REST backend.
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example (Optional)
+      description: If you have a rough idea of the input/output, describe it here.
+      placeholder: |
+        Input: A folder of Express route handlers with Mongoose models.
+        Output: A GraphQL schema file, resolver files, and type definitions.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Primary Language / Framework
+      description: What language or framework is this recipe primarily for?
+      multiple: true
+      options:
+        - Language-agnostic
+        - JavaScript / TypeScript
+        - Python
+        - Go
+        - Rust
+        - Java / Kotlin
+        - C# / .NET
+        - Ruby
+        - PHP
+        - Swift
+        - React
+        - Vue
+        - Angular
+        - Node.js
+        - Django / Flask
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information, links, or references that would help.
+    validations:
+      required: false

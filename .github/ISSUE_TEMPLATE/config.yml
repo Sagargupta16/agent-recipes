@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contributing Guide
+    url: https://github.com/sagargupta/agent-recipes/blob/main/CONTRIBUTING.md
+    about: Read the contributing guide before submitting a recipe.
+  - name: Discussions
+    url: https://github.com/sagargupta/agent-recipes/discussions
+    about: Ask questions and share ideas in GitHub Discussions.
