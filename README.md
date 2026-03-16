@@ -22,7 +22,6 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 | [Generate Unit Tests](recipes/testing/generate-unit-tests.md) | Auto-generate unit tests for uncovered functions |
 | [E2E Test Writer](recipes/testing/e2e-test-writer.md) | Generate end-to-end tests from user stories |
 | [Coverage Gap Finder](recipes/testing/coverage-gap-finder.md) | Find untested code paths and edge cases |
-| [Mutation Testing](recipes/testing/mutation-testing.md) | Verify test quality by checking if tests catch code mutations |
 
 ### Migrations
 
@@ -30,9 +29,7 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 |--------|-------------|
 | [JavaScript to TypeScript](recipes/migrations/js-to-ts.md) | Migrate JS files to TypeScript with proper types |
 | [React Class to Hooks](recipes/migrations/class-to-hooks.md) | Convert React class components to functional + hooks |
-| [REST to GraphQL](recipes/migrations/rest-to-graphql.md) | Migrate REST API endpoints to GraphQL schema |
 | [CJS to ESM](recipes/migrations/cjs-to-esm.md) | Convert CommonJS requires to ES module imports |
-| [Database Migration](recipes/migrations/database-migration.md) | Generate migration scripts between database schemas |
 
 ### Documentation
 
@@ -41,7 +38,6 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 | [README Generator](recipes/documentation/readme-generator.md) | Generate comprehensive README from repo analysis |
 | [API Docs Generator](recipes/documentation/api-docs-generator.md) | Generate OpenAPI/Swagger docs from code |
 | [Changelog Writer](recipes/documentation/changelog-writer.md) | Generate changelog from git commits |
-| [Inline Docs](recipes/documentation/inline-docs.md) | Add JSDoc/docstrings to undocumented functions |
 
 ### Security
 
@@ -50,7 +46,6 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 | [Secret Scanner](recipes/security/secret-scanner.md) | Find hardcoded secrets, keys, and credentials |
 | [OWASP Top 10 Audit](recipes/security/owasp-audit.md) | Check code against OWASP Top 10 vulnerabilities |
 | [Input Validation](recipes/security/input-validation.md) | Add input validation and sanitization to API endpoints |
-| [CSP Generator](recipes/security/csp-generator.md) | Generate Content Security Policy headers from code analysis |
 
 ### DevOps
 
@@ -58,7 +53,6 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 |--------|-------------|
 | [Dockerfile Generator](recipes/devops/dockerfile-generator.md) | Generate optimized multi-stage Dockerfiles |
 | [CI/CD Pipeline](recipes/devops/ci-cd-pipeline.md) | Generate GitHub Actions / GitLab CI from project analysis |
-| [Infrastructure as Code](recipes/devops/iac-generator.md) | Generate Terraform/CloudFormation from architecture description |
 | [Monitoring Setup](recipes/devops/monitoring-setup.md) | Add health checks, metrics, and alerting |
 
 ## How to Use
