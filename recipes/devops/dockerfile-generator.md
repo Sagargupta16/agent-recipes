@@ -110,7 +110,7 @@ Provide:
 # ============================================
 # Stage 1: Build
 # ============================================
-FROM node:20.11-slim AS build
+FROM node:20.20-slim AS build
 
 WORKDIR /app
 
@@ -140,7 +140,7 @@ RUN npm prune --production
 # ============================================
 # Stage 2: Production
 # ============================================
-FROM node:20.11-slim AS production
+FROM node:20.20-slim AS production
 
 # Install dumb-init for proper PID 1 signal handling
 RUN apt-get update && \
