@@ -14,6 +14,7 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 | [Architecture Review](recipes/code-review/architecture-review.md) | High-level codebase architecture analysis and recommendations |
 | [Dependency Audit](recipes/code-review/dependency-audit.md) | Check for outdated, vulnerable, or unnecessary dependencies |
 | [Performance Review](recipes/code-review/performance-review.md) | Identify performance bottlenecks and optimization opportunities |
+| [Multi-Repo PR Check](recipes/code-review/multi-repo-pr-check.md) | Check all your open PRs across multiple repos in parallel |
 
 ### Testing
 
@@ -30,6 +31,7 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 | [JavaScript to TypeScript](recipes/migrations/js-to-ts.md) | Migrate JS files to TypeScript with proper types |
 | [React Class to Hooks](recipes/migrations/class-to-hooks.md) | Convert React class components to functional + hooks |
 | [CJS to ESM](recipes/migrations/cjs-to-esm.md) | Convert CommonJS requires to ES module imports |
+| [Upgrade Dependencies](recipes/migrations/upgrade-dependencies.md) | Safely upgrade all project dependencies with automated testing |
 
 ### Documentation
 
@@ -54,6 +56,7 @@ A community-driven collection of ready-to-use AI agent workflows. Each recipe is
 | [Dockerfile Generator](recipes/devops/dockerfile-generator.md) | Generate optimized multi-stage Dockerfiles |
 | [CI/CD Pipeline](recipes/devops/ci-cd-pipeline.md) | Generate GitHub Actions / GitLab CI from project analysis |
 | [Monitoring Setup](recipes/devops/monitoring-setup.md) | Add health checks, metrics, and alerting |
+| [Background Deploy Monitor](recipes/devops/background-deploy-monitor.md) | Monitor a deployment in the background while continuing other work |
 
 ## How to Use
 
