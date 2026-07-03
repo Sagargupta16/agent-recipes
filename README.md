@@ -1,5 +1,9 @@
 # Agent Recipes
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Recipes](https://img.shields.io/badge/recipes-22-brightgreen.svg)](#recipes)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](CONTRIBUTING.md)
+
 > Copy-paste AI agent workflows for real-world developer tasks.
 
 A community-driven collection of ready-to-use AI agent workflows. Each recipe is a self-contained prompt you can drop into Claude Code, Cursor, Aider, or any AI coding assistant.
