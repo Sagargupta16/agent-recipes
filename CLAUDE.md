@@ -26,7 +26,7 @@ Nothing to install, build, or run. Edit markdown, commit, push.
 
 ## Test
 
-No test suite. Quality bar is manual: per CONTRIBUTING.md, every recipe must be tested against at least one real AI coding agent before submission.
+No unit tests. `bash scripts/lint-recipes.sh` checks every recipe against the format in CONTRIBUTING.md and checks the README index in both directions; the Recipe Lint workflow runs it on every PR. Recipe *quality* is still manual: per CONTRIBUTING.md, every recipe must be tested against at least one real AI coding agent before submission.
 
 ## Entry points
 
@@ -35,15 +35,16 @@ No test suite. Quality bar is manual: per CONTRIBUTING.md, every recipe must be 
 
 ## Key files
 
-- `CONTRIBUTING.md` -- canonical recipe format (title, When to Use, The Prompt, Example, Customization Tips, Tags) and quality standards
+- `CONTRIBUTING.md` -- canonical recipe format (title, `>` description, When to Use, The Prompt, Example with Input/Output, Customization Tips, optional Cost, Tags) and quality standards
+- `scripts/lint-recipes.sh` -- the format and README index check, run by CI
+- `scripts/extract-prompt.sh` -- prints only the fenced prompt from a recipe, so an agent is not fed the worked example as an instruction
 - `.github/ISSUE_TEMPLATE/recipe-request.yml` -- intake for new recipe ideas
 
 ## Gotchas
 
-- README's "Recipe Format" snippet drifts from CONTRIBUTING.md (`## Prompt` vs `## The Prompt`, `## Customization` vs `## Customization Tips`). CONTRIBUTING.md is the contributor-facing spec; reconcile before enforcing either.
-- `.nvmrc` (19), `.python-version` (3.14), `.prettierrc` (tabWidth 3), `.dockerignore` are scaffolding leftovers -- there is no JS/Python/Docker code. Don't infer a toolchain from them.
-- `.github/workflows/` exists but is empty -- no CI. Renovate config extends `Sagargupta16/shared-workflows`.
-- New recipe = two edits: the recipe file in the right `recipes/` subfolder (kebab-case name) plus its README table row.
+- `.github/workflows/` holds `link-check.yml` (lychee, on PRs and every Monday) and `recipe-lint.yml` (the format lint, on PRs and pushes to main). Renovate config extends `Sagargupta16/shared-workflows`.
+- New recipe = two edits plus a check: the recipe file in the right `recipes/` subfolder (kebab-case name), its README table row, then `bash scripts/lint-recipes.sh`.
+- Prompts and example outputs live inside fenced blocks, and prompt bodies carry their own `##` headings. Anything that scans a recipe's structure has to skip fenced content or it will read `## OUTPUT FORMAT` as a recipe section.
 
 ## Repo-specific rules
 

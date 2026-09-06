@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      # CLAUDE.md is deliberately out of scope: its links point outside the
+      # repository, so they cannot resolve in a bare checkout.
       - uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress README.md recipes/
+          args: --no-progress README.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md CHANGELOG.md recipes/
           fail: true

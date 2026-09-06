@@ -21,7 +21,7 @@ Thank you for your interest in contributing to Agent Recipes! This project thriv
 
 ## Recipe Format
 
-Every recipe must follow this structure. Consistency makes the collection easy to browse and use.
+Every recipe must follow this structure. Consistency makes the collection easy to browse and use, and this section is the single source of truth for the format: the README summarizes it and links back here.
 
 ```markdown
 # Recipe Title
@@ -56,10 +56,30 @@ Show a realistic example of what the agent produces.
 - Variations for different languages, frameworks, or contexts
 - Optional additions or modifications
 
+## Cost
+
+Optional. A rough cost range for one run, and what drives it.
+
 ## Tags
 
 `tag1` `tag2` `tag3`
 ```
+
+Notes on the format:
+
+- The `>` line on line 3 is required: one sentence saying what the recipe does, so the file opens with its own summary.
+- `## The Prompt` must be a fenced block containing nothing but the prompt. Everything a user should paste goes inside the fence; everything else goes in another section. `scripts/extract-prompt.sh` relies on this.
+- `## Example` needs both the `### Input` and `### Output` subheadings.
+- `## Cost` is the only optional section. Include it when the recipe has a meaningful cost profile (long-running, parallel, or repeated polling). Keep it a range, state what it depends on, and put it between `## Customization Tips` and `## Tags`.
+- Tags are lowercase, backtick-quoted, and space-separated. Use the category plus the language, framework, or concern the recipe targets. There is no difficulty tag.
+
+### Checking the format
+
+```bash
+bash scripts/lint-recipes.sh
+```
+
+For every recipe this asserts: the level-1 title on line 1, the `>` description on line 3, the sections above in that order with `## Cost` as the only optional one, a fenced prompt that `scripts/extract-prompt.sh` can read back, tags that are non-empty and carry no difficulty, and a row in one of the README index tables. It also checks the reverse direction, that every README link into `recipes/` points at a file that exists. CI runs the same script on every pull request, so run it before you push.
 
 ## Quality Standards
 
@@ -106,7 +126,8 @@ Before submitting, test your recipe against at least one of these agents:
 2. **Use the PR template** and fill out all sections
 3. **Place your recipe** in the correct category folder under `recipes/`
 4. **Name your file** descriptively using kebab-case (e.g., `generate-unit-tests.md`)
-5. **Update the README** if you are adding a new category
+5. **Update the README** index with a row for your recipe, and add a new category table if it needs one
+6. **Run the lint** (`bash scripts/lint-recipes.sh`) and make sure it passes
 
 ### Commit Message Convention
 
