@@ -67,7 +67,7 @@ Optional. A rough cost range for one run, and what drives it.
 
 Notes on the format:
 
-- The `>` line on line 3 is required. It is what the README index and any listing page use as the description.
+- The `>` line on line 3 is required: one sentence saying what the recipe does, so the file opens with its own summary.
 - `## The Prompt` must be a fenced block containing nothing but the prompt. Everything a user should paste goes inside the fence; everything else goes in another section. `scripts/extract-prompt.sh` relies on this.
 - `## Example` needs both the `### Input` and `### Output` subheadings.
 - `## Cost` is the only optional section. Include it when the recipe has a meaningful cost profile (long-running, parallel, or repeated polling). Keep it a range, state what it depends on, and put it between `## Customization Tips` and `## Tags`.
@@ -79,7 +79,7 @@ Notes on the format:
 bash scripts/lint-recipes.sh
 ```
 
-This asserts that every recipe has the required headings and a `>` description, that its tags are not empty, and that it has a row in the README index. CI runs the same script on every pull request, so run it before you push.
+For every recipe this asserts: the level-1 title on line 1, the `>` description on line 3, the sections above in that order with `## Cost` as the only optional one, a fenced prompt that `scripts/extract-prompt.sh` can read back, tags that are non-empty and carry no difficulty, and a row in one of the README index tables. It also checks the reverse direction, that every README link into `recipes/` points at a file that exists. CI runs the same script on every pull request, so run it before you push.
 
 ## Quality Standards
 

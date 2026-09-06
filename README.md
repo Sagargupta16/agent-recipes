@@ -126,7 +126,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
 
 ## Roadmap
 
-The open issues are a curated backlog of wanted recipes, not a bug list. Most are one recipe each, and several are labelled as good first issues:
+Most open issues are requests for recipes that do not exist yet rather than bug reports. Five of them, all labelled `roadmap`:
 
 - [Accessibility audit recipe](https://github.com/Sagargupta16/agent-recipes/issues/1)
 - [Database schema reviewer recipe](https://github.com/Sagargupta16/agent-recipes/issues/2)
@@ -141,7 +141,7 @@ Browse the full backlog by label: [good first issue](https://github.com/Sagargup
 | Project | Description |
 |---------|-------------|
 | [claude-code-recipes](https://github.com/Sagargupta16/claude-code-recipes) | 47 copy-paste recipes for Claude Code - commands, subagents, hooks, skills, MCP integration, and workflow patterns |
-| [claude-cost-optimizer](https://github.com/Sagargupta16/claude-cost-optimizer) | Save 30-60% on Claude Code costs -- proven strategies, real benchmarks, copy-paste configs, and interactive tools |
+| [claude-cost-optimizer](https://github.com/Sagargupta16/claude-cost-optimizer) | An installable skill, CLI tools, and deep-dive guides for cutting Claude Code token spend |
 | [ai-git-hooks](https://github.com/Sagargupta16/ai-git-hooks) | AI-powered git hooks - auto-review diffs, generate commit messages, scan for secrets. Supports Claude, OpenAI, and Ollama |
 | [mcp-toolkit](https://github.com/Sagargupta16/mcp-toolkit) | TypeScript middleware toolkit for MCP servers - authentication, caching, rate limiting, CORS, logging (beta) |
 | [claude-skills](https://github.com/Sagargupta16/claude-skills) | Custom Claude Code plugin marketplace with skills for FARM stack, open source contributions, repo maintenance, and portfolio management |

@@ -89,12 +89,12 @@ Not re-running. Over to you.
 
 ## Customization Tips
 
-- **In Claude Code, run it detached** so the polling never occupies your session: start it with `--bg` (or launch it as a subagent with `run_in_background: true`) and pick it back up when it reports. Combine that with `--max-budget-usd` to cap what a long poll can spend.
+- **In Claude Code, run it detached** so the polling never occupies your session: start it with `--bg` (or launch it as a subagent with `run_in_background: true`) and pick it back up when it reports.
 - **To watch a platform deploy instead of GitHub Actions**, swap the poll command: `vercel inspect <url> --wait`, `aws amplify get-job --app-id X --branch-name Y --job-id Z`, or the provider's status endpoint via `curl`. Keep the same 60 second interval and terminal-state logic.
 - **To tighten the loop for short jobs**, drop the interval to 15 seconds and the timeout to 5 minutes. For a nightly pipeline, go the other way: 5 minute interval, 2 hour timeout.
 - **To add a smoke check**, append: "Once the conclusion is success, curl the health endpoint at <url>, and report the status code and response time. Treat a non-200 as a failed deploy."
 - **To make failures louder**, append a notification step: post the failure summary to a Slack webhook, or open a GitHub issue with the failing step and log excerpt attached.
-- **Use a cheap model.** This prompt is mostly polling and one short summary, so Haiku is enough; reserve a larger model for the run that actually diagnoses the failure.
+- **Use a cheap model, and cap the spend.** This prompt is mostly polling and one short summary, so Haiku is enough; reserve a larger model for the run that actually diagnoses the failure. `claude --help` documents `--max-budget-usd` as only working with `--print`, so the cap goes on a print-mode run: `claude -p "$(bash scripts/extract-prompt.sh recipes/devops/background-deploy-monitor.md)" --model haiku --max-budget-usd 1.00`.
 
 ## Cost
 

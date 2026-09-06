@@ -38,12 +38,14 @@ Put each PR in exactly one bucket:
 - BLOCKED: failing CI, merge conflicts, or requested changes I have not answered
 - READY: approved (or review not required), all checks green, mergeable
 - WAITING: green and conflict-free, but review has not happened yet
+- PENDING: checks still queued or running, so there is nothing to act on yet
 - DRAFT: still marked as a draft
-- STALE: no push and no review activity for more than 14 days, whatever the other signals say
+
+Then, on top of its bucket, flag any PR with no push and no review activity for more than 14 days as STALE.
 
 ## 4. OUTPUT
 
-Start with one table, sorted BLOCKED, READY, WAITING, DRAFT:
+Start with one table, sorted BLOCKED, READY, WAITING, PENDING, DRAFT:
 
 | Repo | # | Title | CI | Reviews | Age | Next action |
 
@@ -53,14 +55,14 @@ Rules for the report:
 - Name the failing check and its failure reason. "CI red" is not an acceptable answer.
 - If `mergeable_state` is `dirty`, say which base branch it conflicts with.
 - Call out any PR older than 14 days explicitly, even if it is green.
-- End with a one-line count per bucket.
+- End with a one-line count per bucket, plus how many of them are flagged STALE.
 ```
 
 ## Example
 
 ### Input
 
-"Triage my open PRs." The author has five open PRs across four repositories.
+"Triage my open PRs." The author has five open PRs across three repositories.
 
 ### Output
 
@@ -95,7 +97,7 @@ Rules for the report:
 ### acme/web #91 -- Dark mode tokens
 - Green and mergeable, no reviewer has looked yet. Next: request a reviewer.
 
-## DRAFT / PENDING
+## PENDING
 
 ### acme/infra #37 -- Terraform state migration
 - `terraform-plan` still running. Nothing to do until it reports.
@@ -105,7 +107,7 @@ Counts: BLOCKED 2, READY 1, WAITING 1, PENDING 1, of which STALE 1.
 
 ## Customization Tips
 
-- **To run it as parallel subagents in Claude Code**, tell the agent to launch one subagent per PR, each doing the step 2 API calls for its own PR and returning a single row plus its next action. The main agent only assembles the table. This is noticeably faster once you pass roughly ten PRs.
+- **To run it as parallel subagents in Claude Code**, tell the agent to launch one subagent per PR, each doing the step 2 API calls for its own PR and returning a single row plus its next action. The main agent only assembles the table.
 - **To include PRs you are reviewing rather than authoring**, swap the search to `gh search prs review-requested:@me is:open`, or run both searches and label each row with `author` or `reviewer`.
 - **To scope it to one organization**, add `org:your-org` to the `gh search prs` query. Add `--limit 100` if you have more than the default page of results.
 - **To catch bot PRs piling up**, run `gh search prs author:app/renovate is:open org:your-org` as a second pass and report those separately -- they usually need batching, not individual triage.
@@ -113,7 +115,7 @@ Counts: BLOCKED 2, READY 1, WAITING 1, PENDING 1, of which STALE 1.
 
 ## Cost
 
-~$0.20-0.50 with Sonnet for 5-10 PRs
+~$0.20-0.50 with Sonnet for 5-10 PRs. Select that model with `claude --model sonnet`.
 
 ## Tags
 
