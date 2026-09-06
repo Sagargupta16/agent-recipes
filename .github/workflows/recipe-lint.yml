@@ -1,0 +1,14 @@
+name: Recipe Lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check recipe format and README index
+        run: bash scripts/lint-recipes.sh
