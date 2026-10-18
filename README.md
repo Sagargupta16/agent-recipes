@@ -3,10 +3,31 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Recipes](https://img.shields.io/badge/recipes-22-brightgreen.svg)](#recipes)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](CONTRIBUTING.md)
+[![Recipe Lint](https://github.com/Sagargupta16/agent-recipes/actions/workflows/recipe-lint.yml/badge.svg)](https://github.com/Sagargupta16/agent-recipes/actions/workflows/recipe-lint.yml)
+[![Link Check](https://github.com/Sagargupta16/agent-recipes/actions/workflows/link-check.yml/badge.svg)](https://github.com/Sagargupta16/agent-recipes/actions/workflows/link-check.yml)
 
 > Copy-paste AI agent workflows for real-world developer tasks.
 
 A community-driven collection of ready-to-use AI agent workflows. Each recipe is a self-contained prompt you can drop into Claude Code, Cursor, Aider, or any AI coding assistant.
+
+## Why This Exists
+
+Many prompt collections are lists of one-liners with no context on when or how to use them. Every recipe here is a structured file with a scenario, the prompt, a realistic worked example, and tuning tips, and CI enforces that structure on every pull request. Recipes are plain markdown, so they work in any agent and need nothing installed.
+
+## How It Works
+
+```mermaid
+flowchart LR
+    R["recipes/category/name.md"] -->|"scripts/extract-prompt.sh"| P["Prompt block only"]
+    P --> A["Claude Code, Cursor, Aider, Copilot..."]
+    A --> O["Report or code change in your repo"]
+    R -. "every PR" .-> L["scripts/lint-recipes.sh<br/>format + README index"]
+    R -. "every PR and weekly" .-> K["lychee link check"]
+```
+
+- **One file per recipe.** The sections are fixed (see [Recipe Format](#recipe-format)), so a reader always finds the prompt and the example in the same place.
+- **Prompt and example are kept apart.** `scripts/extract-prompt.sh` prints only the fenced block under `## The Prompt`, so an agent never reads the worked example's output as an instruction.
+- **The repo checks itself.** `scripts/lint-recipes.sh` fails CI if a recipe drifts from the format or is missing from the index below, and lychee catches dead links before readers do.
 
 ## Recipes
 

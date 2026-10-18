@@ -42,7 +42,7 @@ No unit tests. `bash scripts/lint-recipes.sh` checks every recipe against the fo
 
 ## Gotchas
 
-- `.github/workflows/` holds `link-check.yml` (lychee, on PRs and every Monday) and `recipe-lint.yml` (the format lint, on PRs and pushes to main). Renovate config extends `Sagargupta16/shared-workflows`.
+- `.github/workflows/` holds `link-check.yml` (lychee, on PRs and every Monday) and `recipe-lint.yml` (the format lint, on PRs and pushes to main). Both set `permissions: contents: read`, and the third-party lychee action is pinned to a commit SHA with a `# vX.Y.Z` comment. Renovate config extends `Sagargupta16/shared-workflows`.
 - New recipe = two edits plus a check: the recipe file in the right `recipes/` subfolder (kebab-case name), its README table row, then `bash scripts/lint-recipes.sh`.
 - Prompts and example outputs live inside fenced blocks, and prompt bodies carry their own `##` headings. Anything that scans a recipe's structure has to skip fenced content or it will read `## OUTPUT FORMAT` as a recipe section.
 

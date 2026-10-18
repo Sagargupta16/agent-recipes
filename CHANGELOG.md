@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.0] - 2026-10-18
 
-Everything landed since 1.0.0. The repository has no git tags and no GitHub releases, so this stays `[Unreleased]` until one is cut.
+Everything landed since 1.0.0. The repository has no git tags or GitHub releases yet, so this version exists only in this file until one is cut.
 
 The repository now checks itself: a link check plus a lint that enforces the recipe format and keeps the README index in sync. The three recipes added on 2026-03-24, after 1.0.0 shipped, are also brought up to the format CONTRIBUTING.md documents, which they did not follow when they landed.
 
@@ -15,6 +15,7 @@ The repository now checks itself: a link check plus a lint that enforces the rec
 - Roadmap and cross-project sections in the README, plus a composing-recipes section showing how to chain recipes
 - Renovate configuration for monthly grouped dependency updates
 - License, recipe count, and contributions badges in the README
+- Recipe Lint and Link Check status badges, plus Why This Exists and How It Works sections in the README, with a mermaid diagram of how a recipe goes from file to agent and what CI checks on the way
 - `[*.md] trim_trailing_whitespace = false` in `.editorconfig`, so an editor does not strip the two trailing spaces that make a markdown hard line break
 
 ### Changed
@@ -23,12 +24,15 @@ The repository now checks itself: a link check plus a lint that enforces the rec
 - CONTRIBUTING.md is the single source of truth for the recipe format. The README's Recipe Format section summarizes it and links there, instead of specifying a second, conflicting version
 - The documented tag convention no longer includes a difficulty tag, since no recipe uses one
 - The README usage commands extract just the prompt block rather than piping the whole recipe file, and create `.claude/commands/` before writing to it
+- The CI/CD Pipeline recipe no longer steers agents to end-of-life runtimes and old action majors: Node 24 (matrix 22 and 24) instead of Node 20 (matrix 18, 20, 22), `postgres:18`, `actions/checkout@v7`, `actions/setup-node@v7`, `codecov/codecov-action@v7`, `github/codeql-action@v4`, `aws-actions/configure-aws-credentials@v6`, `docker/build-push-action@v7`, and a v7.0.1 SHA in the pinning example
 
 ### Fixed
 
 - Removed a duplicate pull request template that collided on case-insensitive filesystems (#45, #46)
 - `.editorconfig` set a 3 space indent, inherited from the `.prettierrc` deleted in 2d3e46a, which fought the 2 space indentation used across the recipes and the workflow files. It is now 2
 - SECURITY.md now says what a security report means for a collection of prompts, instead of a bare `Version: 1` line
+- Both workflows set `permissions: contents: read`, addressing the two open `actions/missing-workflow-permissions` code scanning alerts, and `lycheeverse/lychee-action` is pinned to a full commit SHA (v2.9.0), addressing the SonarCloud S7637 alert
+- The CJS to ESM recipe called the `with { type: 'json' }` syntax an import assertion. It is an import attribute; assertions used `assert` and are deprecated
 
 ### Removed
 
