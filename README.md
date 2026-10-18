@@ -120,13 +120,13 @@ npx skills add Sagargupta16/agent-recipes --skill secret-scanner
 
 ### As a Claude Code plugin
 
-The repo is its own plugin marketplace. In Claude Code 2.1.275 or later, one line does it:
+The repo is its own plugin marketplace. If your `claude plugin install --help` lists `--marketplace` (it does on 2.1.295), one line does it:
 
-```
-/plugin install agent-recipes --marketplace Sagargupta16/agent-recipes
+```bash
+claude plugin install agent-recipes --marketplace Sagargupta16/agent-recipes
 ```
 
-On older versions, add the marketplace first:
+Otherwise, add the marketplace first:
 
 ```
 /plugin marketplace add Sagargupta16/agent-recipes

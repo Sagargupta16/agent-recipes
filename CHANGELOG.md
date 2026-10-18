@@ -9,7 +9,7 @@ The recipes can now be installed instead of copied. Each one is generated into a
 - `skills/`, one `SKILL.md` per recipe (22 in total), following the Agent Skills specification at agentskills.io. `npx skills add Sagargupta16/agent-recipes` installs them into Claude Code, Codex, Cursor, and the other agents the skills CLI supports. The skill's description is the recipe's `>` line plus its When to Use bullets, and its body is the recipe's prompt without the worked example
 - `scripts/build-skills.sh`, which generates `skills/` from `recipes/`. With `--check` it fails if `skills/` is stale, if a skill name is invalid or repeated, if a description is over 1,024 characters or a body over 500 lines, or if the plugin version, marketplace version, newest CHANGELOG version, and recipe counts in the manifests disagree
 - A Recipe Lint workflow step that runs `bash scripts/build-skills.sh --check` on every pull request and push to main
-- `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`, so `/plugin install agent-recipes --marketplace Sagargupta16/agent-recipes` installs every recipe as a namespaced skill such as `/agent-recipes:pr-review`
+- `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`, so `claude plugin install agent-recipes --marketplace Sagargupta16/agent-recipes` installs every recipe as a namespaced skill such as `/agent-recipes:pr-review`
 - README install instructions for the skills CLI and the plugin, a section on how this repo's scope differs from claude-code-recipes, and the skill build in the How It Works diagram
 - CONTRIBUTING.md steps for regenerating the skills after adding or changing a recipe
 
