@@ -109,7 +109,7 @@ const plugin = await import(dynamicPath);
 // CommonJS
 const config = require('./config.json');
 
-// ESM Option 1: Import assertion (Node 18.20+, Node 20.10+, Node 21+)
+// ESM Option 1: Import attributes (Node 18.20+, Node 20.10+, Node 21+)
 import config from './config.json' with { type: 'json' };
 
 // ESM Option 2: Read and parse (works in all Node versions)

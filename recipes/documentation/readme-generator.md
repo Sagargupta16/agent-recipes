@@ -135,7 +135,7 @@ npx csvql "SELECT name, age FROM users.csv WHERE age > 25 ORDER BY name"
 npm install -g csvql
 ```
 
-Requires Node.js 18 or later.
+Requires Node.js 22 or later.
 
 ## Usage
 
