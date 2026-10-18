@@ -33,6 +33,7 @@ The repository now checks itself: a link check plus a lint that enforces the rec
 - SECURITY.md now says what a security report means for a collection of prompts, instead of a bare `Version: 1` line
 - Both workflows set `permissions: contents: read`, addressing the two open `actions/missing-workflow-permissions` code scanning alerts, and `lycheeverse/lychee-action` is pinned to a full commit SHA (v2.9.0), addressing the SonarCloud S7637 alert
 - The CJS to ESM recipe called the `with { type: 'json' }` syntax an import assertion. It is an import attribute; assertions used `assert` and are deprecated
+- The README Generator recipe's example output asked for Node.js 18, which is end of life. It now says Node.js 22, matching the CI/CD Pipeline recipe
 
 ### Removed
 
