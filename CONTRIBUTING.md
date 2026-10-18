@@ -81,6 +81,16 @@ bash scripts/lint-recipes.sh
 
 For every recipe this asserts: the level-1 title on line 1, the `>` description on line 3, the sections above in that order with `## Cost` as the only optional one, a fenced prompt that `scripts/extract-prompt.sh` can read back, tags that are non-empty and carry no difficulty, and a row in one of the README index tables. It also checks the reverse direction, that every README link into `recipes/` points at a file that exists. CI runs the same script on every pull request, so run it before you push.
 
+### Generating the skill
+
+Every recipe is also published as an [Agent Skill](https://agentskills.io/specification) in `skills/<file-name>/SKILL.md`, which is what `npx skills add` and the Claude Code plugin install. You never edit those files by hand. After adding or changing a recipe, regenerate them:
+
+```bash
+bash scripts/build-skills.sh
+```
+
+The skill's description is your `>` line followed by your When to Use bullets (minus a Prerequisites bullet), and an agent reads that description to decide when to load the skill, so write the bullets as situations ("When ...", "Before ..."). The skill name is the recipe's file name, so it has to be unique across all categories. CI runs `bash scripts/build-skills.sh --check`, which fails if `skills/` no longer matches the recipes, if a description goes over 1,024 characters, or if the recipe count at the start of the two descriptions in `.claude-plugin/` is out of date.
+
 ## Quality Standards
 
 Before submitting a recipe, ensure it meets these standards:
@@ -128,6 +138,7 @@ Before submitting, test your recipe against at least one of these agents:
 4. **Name your file** descriptively using kebab-case (e.g., `generate-unit-tests.md`)
 5. **Update the README** index with a row for your recipe, and add a new category table if it needs one
 6. **Run the lint** (`bash scripts/lint-recipes.sh`) and make sure it passes
+7. **Regenerate the skills** (`bash scripts/build-skills.sh`) and commit the `skills/` change with your recipe
 
 ### Commit Message Convention
 
