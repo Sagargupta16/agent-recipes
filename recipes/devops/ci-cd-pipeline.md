@@ -56,14 +56,14 @@ on:
   ```yaml
   strategy:
     matrix:
-      node-version: [18, 20, 22]
+      node-version: [22, 24]
       os: [ubuntu-latest]
   ```
 - For tests that need services (database, Redis), use service containers:
   ```yaml
   services:
     postgres:
-      image: postgres:16
+      image: postgres:18
       env:
         POSTGRES_PASSWORD: test
       ports: ['5432:5432']
@@ -122,9 +122,9 @@ on:
 ### Caching
 - Cache package manager dependencies:
   ```yaml
-  - uses: actions/setup-node@v4
+  - uses: actions/setup-node@v7
     with:
-      node-version: 20
+      node-version: 24
       cache: 'npm'
   ```
 - Cache Docker layers if building images
@@ -139,7 +139,7 @@ on:
   ```
 - Pin action versions to full SHA, not tags (prevent supply chain attacks):
   ```yaml
-  - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+  - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
   ```
 - Store secrets in GitHub Secrets, never in workflow files
 - Use OIDC for cloud provider authentication (no long-lived credentials)
@@ -207,11 +207,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
           cache: 'npm'
 
       - run: npm ci
@@ -232,7 +232,7 @@ jobs:
     needs: lint
     services:
       postgres:
-        image: postgres:16
+        image: postgres:18
         env:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: test
@@ -245,11 +245,11 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
           cache: 'npm'
 
       - run: npm ci
@@ -267,7 +267,7 @@ jobs:
 
       - name: Upload coverage
         if: github.event_name == 'pull_request'
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -276,18 +276,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Dependency audit
         run: npm audit --audit-level=high
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript-typescript
 
       - name: Run CodeQL analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
 
   build:
     name: Build Docker Image
@@ -299,10 +299,10 @@ jobs:
       id-token: write # OIDC for AWS
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-1
@@ -312,7 +312,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -362,10 +362,10 @@ jobs:
       name: staging
       url: https://staging-api.example.com
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-1
@@ -407,10 +407,10 @@ jobs:
       name: production
       url: https://api.example.com
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_PROD }}
           aws-region: us-east-1
