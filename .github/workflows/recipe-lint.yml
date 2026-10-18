@@ -15,3 +15,5 @@ jobs:
       - uses: actions/checkout@v7
       - name: Check recipe format and README index
         run: bash scripts/lint-recipes.sh
+      - name: Check skills/ is regenerated from the recipes
+        run: bash scripts/build-skills.sh --check

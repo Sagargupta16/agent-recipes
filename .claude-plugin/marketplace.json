@@ -1,0 +1,20 @@
+{
+  "name": "agent-recipes",
+  "owner": {
+    "name": "Sagar Gupta",
+    "url": "https://github.com/Sagargupta16"
+  },
+  "metadata": {
+    "description": "Copy-paste AI agent workflows for real-world developer tasks, installable as Claude Code skills."
+  },
+  "plugins": [
+    {
+      "name": "agent-recipes",
+      "source": "./",
+      "description": "22 developer-task recipes as skills, covering code review, testing, migrations, documentation, security and DevOps.",
+      "version": "1.2.0",
+      "license": "MIT",
+      "category": "development"
+    }
+  ]
+}

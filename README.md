@@ -8,11 +8,27 @@
 
 > Copy-paste AI agent workflows for real-world developer tasks.
 
-A community-driven collection of ready-to-use AI agent workflows. Each recipe is a self-contained prompt you can drop into Claude Code, Cursor, Aider, or any AI coding assistant.
+A community-driven collection of ready-to-use AI agent workflows. Each recipe is a self-contained prompt you can drop into Claude Code, Cursor, Aider, or any AI coding assistant, or install as an [Agent Skill](https://agentskills.io) with one command.
+
+```bash
+npx skills add Sagargupta16/agent-recipes
+```
 
 ## Why This Exists
 
-Many prompt collections are lists of one-liners with no context on when or how to use them. Every recipe here is a structured file with a scenario, the prompt, a realistic worked example, and tuning tips, and CI enforces that structure on every pull request. Recipes are plain markdown, so they work in any agent and need nothing installed.
+Many prompt collections are lists of one-liners with no context on when or how to use them. Every recipe here is a structured file with a scenario, the prompt, a realistic worked example, and tuning tips, and CI enforces that structure on every pull request. Recipes are plain markdown, so they work in any agent and need nothing installed. Each one is also generated into a skill under [`skills/`](skills), so agents that support skills can load the right recipe on their own instead of waiting for a paste.
+
+### Scope, next to claude-code-recipes
+
+[claude-code-recipes](https://github.com/Sagargupta16/claude-code-recipes) is the sibling repo, and the two do not overlap on purpose:
+
+| | agent-recipes (this repo) | claude-code-recipes |
+|---|---|---|
+| What a recipe is | A task prompt: review this PR, find these secrets, migrate this file | A Claude Code config file: a command, subagent, hook, skill, or MCP setup |
+| Works in | Any agent that takes a prompt or loads Agent Skills | Claude Code |
+| Answers | "What should I ask the agent to do?" | "How do I set Claude Code up?" |
+
+If you want the agent to do a developer task, start here. If you want to change how Claude Code itself behaves, go there.
 
 ## How It Works
 
@@ -21,13 +37,17 @@ flowchart LR
     R["recipes/category/name.md"] -->|"scripts/extract-prompt.sh"| P["Prompt block only"]
     P --> A["Claude Code, Cursor, Aider, Copilot..."]
     A --> O["Report or code change in your repo"]
+    R -->|"scripts/build-skills.sh"| S["skills/name/SKILL.md"]
+    S -->|"npx skills add or /plugin install"| A
     R -. "every PR" .-> L["scripts/lint-recipes.sh<br/>format + README index"]
+    S -. "every PR" .-> C["build-skills.sh --check<br/>no drift, spec limits"]
     R -. "every PR and weekly" .-> K["lychee link check"]
 ```
 
 - **One file per recipe.** The sections are fixed (see [Recipe Format](#recipe-format)), so a reader always finds the prompt and the example in the same place.
-- **Prompt and example are kept apart.** `scripts/extract-prompt.sh` prints only the fenced block under `## The Prompt`, so an agent never reads the worked example's output as an instruction.
-- **The repo checks itself.** `scripts/lint-recipes.sh` fails CI if a recipe drifts from the format or is missing from the index below, and lychee catches dead links before readers do.
+- **Prompt and example are kept apart.** `scripts/extract-prompt.sh` prints only the fenced block under `## The Prompt`, so an agent never reads the worked example's output as an instruction. The generated skills leave the example out for the same reason.
+- **Skills are built, not hand-written.** `scripts/build-skills.sh` turns each recipe into `skills/<name>/SKILL.md`: the `>` line and the When to Use bullets become the skill's description, which is what an agent reads to decide when to load it, and the prompt becomes its instructions. The recipe stays the only file you edit.
+- **The repo checks itself.** `scripts/lint-recipes.sh` fails CI if a recipe drifts from the format or is missing from the index below, `scripts/build-skills.sh --check` fails it if `skills/` is stale or breaks the [Agent Skills spec](https://agentskills.io/specification) limits, and lychee catches dead links before readers do.
 
 ## Recipes
 
@@ -85,9 +105,41 @@ flowchart LR
 
 ## How to Use
 
+### As Agent Skills
+
+Every recipe ships as a skill with the same name as its file, so `recipes/security/secret-scanner.md` is the `secret-scanner` skill.
+
+```bash
+# Pick skills and agents interactively (Claude Code, Codex, Cursor, and the other agents the skills CLI supports)
+npx skills add Sagargupta16/agent-recipes
+
+# Or see what is in the repo, then install just one
+npx skills add Sagargupta16/agent-recipes --list
+npx skills add Sagargupta16/agent-recipes --skill secret-scanner
+```
+
+### As a Claude Code plugin
+
+The repo is its own plugin marketplace. In Claude Code 2.1.275 or later, one line does it:
+
+```
+/plugin install agent-recipes --marketplace Sagargupta16/agent-recipes
+```
+
+On older versions, add the marketplace first:
+
+```
+/plugin marketplace add Sagargupta16/agent-recipes
+/plugin install agent-recipes@agent-recipes
+```
+
+Every recipe is then a namespaced skill. Claude loads one when your request matches its description, or you call it directly, for example `/agent-recipes:pr-review` or `/agent-recipes:secret-scanner`.
+
+### As a plain prompt
+
 Run the prompt, not the whole file. A recipe also contains a worked example, and if you pipe the entire file into an agent it reads that example's output as part of its instructions. `scripts/extract-prompt.sh` prints only the fenced block under `## The Prompt`.
 
-### With Claude Code
+#### With Claude Code
 
 ```bash
 # Run a recipe's prompt directly
@@ -99,7 +151,7 @@ bash scripts/extract-prompt.sh recipes/code-review/pr-review.md > .claude/comman
 # Then use: /review
 ```
 
-### With Cursor / Windsurf / Any AI Assistant
+#### With Cursor / Windsurf / Any AI Assistant
 
 1. Open the recipe `.md` file
 2. Copy the fenced block under `## The Prompt` into your AI chat
@@ -128,7 +180,7 @@ Every recipe is one markdown file with the same sections in the same order:
 | `## Cost` | Optional: a rough cost range for running the recipe |
 | `## Tags` | Backtick-quoted tags for discoverability |
 
-[CONTRIBUTING.md](CONTRIBUTING.md#recipe-format) has the full template and is the source of truth for the format. `bash scripts/lint-recipes.sh` checks every recipe against it, and CI runs the same check on every pull request.
+[CONTRIBUTING.md](CONTRIBUTING.md#recipe-format) has the full template and is the source of truth for the format. `bash scripts/lint-recipes.sh` checks every recipe against it, and CI runs the same check on every pull request, plus `bash scripts/build-skills.sh --check` to confirm `skills/` was regenerated.
 
 ## Contributing
 
@@ -139,7 +191,8 @@ Have a useful AI workflow? Share it!
 3. Follow the [recipe format](#recipe-format)
 4. Add a row for it to the index above
 5. Run `bash scripts/lint-recipes.sh` to check both
-6. Submit a PR
+6. Run `bash scripts/build-skills.sh` to generate its skill, and bump the recipe count at the start of both descriptions in `.claude-plugin/`
+7. Submit a PR
 
 **Ideas for new recipes?** [Open an issue](https://github.com/Sagargupta16/agent-recipes/issues/new?template=recipe-request.yml)!
 

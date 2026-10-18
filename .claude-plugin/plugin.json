@@ -1,0 +1,15 @@
+{
+  "name": "agent-recipes",
+  "displayName": "Agent Recipes",
+  "version": "1.2.0",
+  "description": "22 developer-task recipes as skills: PR, architecture, dependency and performance review, unit, E2E and coverage-gap testing, JS to TS, CJS to ESM and class-to-hooks migrations, README, API doc and changelog writing, secret scanning, OWASP audits, input validation, Dockerfiles, CI/CD, monitoring and deploy watching. Each skill runs the recipe's prompt, without its worked example.",
+  "author": {
+    "name": "Sagar Gupta",
+    "url": "https://github.com/Sagargupta16"
+  },
+  "homepage": "https://github.com/Sagargupta16/agent-recipes",
+  "repository": "https://github.com/Sagargupta16/agent-recipes",
+  "license": "MIT",
+  "supportUrl": "https://github.com/Sagargupta16/agent-recipes/issues",
+  "keywords": ["prompts", "code-review", "testing", "security", "migrations", "documentation", "devops"]
+}
